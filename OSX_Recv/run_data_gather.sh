@@ -1,0 +1,1 @@
+(echo south2000! | sudo -S python gather_data_start.py) ; (echo south2000! | sudo -S python gather_data_len.py) ; (echo south2000! | sudo -S python gather_data_pic.py) ; (echo south2000! | sudo -S python gather_data_lang.py)

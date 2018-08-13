@@ -1,0 +1,49 @@
+#!/usr/bin/python
+
+import subprocess
+import string
+import shlex
+import time
+import signal
+import random
+from config import OSX_RECV_DATA, OSX_RECV_CODE
+
+random.seed()
+
+test_chars = list(string.digits)
+test_chars.extend(string.letters)
+
+lengths = [8,16,32,64,128]
+trials = range(250)
+
+for i in trials:
+    for j in lengths:
+        char = "".join(random.choice(test_chars) for k in range(j))
+        j = str(j).zfill(3)
+
+        len_capture_string = "%s/text/data_%s/%d.pcap" % (OSX_RECV_DATA,j,i)
+        try:
+            os.remove(len_capture_string)
+        except:
+            pass
+
+        filter_string = "tcp port 5223 and net 17.0.0.0/8"
+
+
+        #Run applescript and finish
+        applescript_cmd = "ssh -i /Users/coulls/.ssh/id_rsa coulls@scoull.rj \"osascript %s/type_letter.scpt %s\"" % (OSX_RECV_CODE,char)
+        subprocess.call(shlex.split(applescript_cmd))
+        time.sleep(4)
+
+        #Open tcpdump and sleep
+        tcpdump_cmd = "tcpdump -i en1 -w %s %s" % (len_capture_string, filter_string)
+        tcpdump_proc = subprocess.Popen(shlex.split(tcpdump_cmd))
+        time.sleep(1)
+
+        applescript_cmd = "ssh -i /Users/coulls/.ssh/id_rsa coulls@scoull.rj \"osascript %s/enter_letter.scpt\"" % (OSX_RECV_CODE)
+        subprocess.call(shlex.split(applescript_cmd))
+        time.sleep(4)
+
+        #tcpdump_proc.terminate()
+        tcpdump_proc.send_signal(signal.SIGINT)
+        time.sleep(1)
