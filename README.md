@@ -30,16 +30,16 @@ collected from the local wireless interface and all iPhone interfaces
 using the rvi0 interface created by the rvictl utility.
 
 Dependencies:
-1.) Cliclick -- mouse click utility for Mac OSX
-2.) VNC client -- remote access to iPhone GUI from Mac OSX
-3.) Jailbroken iPhone -- install of unauthorized apps
-4.) VNC server on iPhone -- remote access to Messages GUI on phone
-5.) SSH access to iPhone -- remote access to BiteSMS
-6.) BiteSMS on iPhone -- command line driven iMessages
-7.) Pastebote on iPhone & Mac OSX -- shares Mac clipboard with phone
-8.) Python 2.6+ -- drives data collection and calls other scripts
-9.) tcpdump -- collects packets for each iMessage event
-10.) rvictl -- creates virtual interface to collect to iPhone packets
+1. Cliclick -- mouse click utility for Mac OSX
+2. VNC client -- remote access to iPhone GUI from Mac OSX
+3. Jailbroken iPhone -- install of unauthorized apps
+4. VNC server on iPhone -- remote access to Messages GUI on phone
+5. SSH access to iPhone -- remote access to BiteSMS
+6. BiteSMS on iPhone -- command line driven iMessages
+7. Pastebote on iPhone & Mac OSX -- shares Mac clipboard with phone
+8. Python 2.6+ -- drives data collection and calls other scripts
+9. tcpdump -- collects packets for each iMessage event
+10. rvictl -- creates virtual interface to collect to iPhone packets
 
 Start/Stop Collection
 ---------------------
@@ -48,14 +48,14 @@ a user starts or stops typing in the Messages app.  This collection is
 driven through remote VNC access to the Messages GUI.
 
 Workflow:
-1.) Determine x,y coordinates of Messages text box using Cliclick
-2.) Set focus to VNC client and click in Messages text box with Cliclick
-3.) Begin collecting "start" message data using tcpdump
-4.) Use AppleScript to type random message into text box using VNC
-5.) Stop "start" message collection
-6.) Start "stop" message collection
-7.) Use AppleScript to type backspaces and erase all text using VNC
-8.) Stop "stop" message collection
+1. Determine x,y coordinates of Messages text box using Cliclick
+2. Set focus to VNC client and click in Messages text box with Cliclick
+3. Begin collecting "start" message data using tcpdump
+4. Use AppleScript to type random message into text box using VNC
+5. Stop "start" message collection
+6. Start "stop" message collection
+7. Use AppleScript to type backspaces and erase all text using VNC
+8. Stop "stop" message collection
 
 Read Reciept Collection
 -----------------------
@@ -63,13 +63,13 @@ This collects packet trace data associated with the event that a user,
 with read recipients enabled, has looked at a message.
 
 Workflow:
-0.) Ensure read recipients are enabled on recipient device
-1.) Determine x,y coordinates of button to return to main Messages index
-2.) Determine x,y coordinates of Messages index used for collection
-3.) Send random text to recipient using SSH and BiteSMS
-4.) Start tcpdump collection
-5.) Use Cliclick to view Messages index from sender
-6.) Stop tcpdump collection
+0. Ensure read recipients are enabled on recipient device
+1. Determine x,y coordinates of button to return to main Messages index
+2. Determine x,y coordinates of Messages index used for collection
+3. Send random text to recipient using SSH and BiteSMS
+4. Start tcpdump collection
+5. Use Cliclick to view Messages index from sender
+6. Stop tcpdump collection
 
 Random Text & Language Collection
 ---------------------------------
@@ -80,9 +80,9 @@ instead of creating random strings, the strings are taken from the
 corpus index in the respective data folders.
 
 Workflow:
-1.) Start tcpdump collection
-2.) Send random text of specified size using SSH and BiteSMS
-3.) Stop tcpdump collection
+1. Start tcpdump collection
+2. Send random text of specified size using SSH and BiteSMS
+3. Stop tcpdump collection
 
 Image Collection
 ----------------
@@ -93,12 +93,12 @@ Images are sent a canonical attachments of exponentially increasing
 dimensions (16 x 16, 32 x 32, 64 x 64).
 
 Workflow:
-1.) Determine x,y coordinates of Messages text box, paste bubble, and send
-2.) Generate random PNG image of specified dimensions save to "temp.png"
-3.) Use AppleScript to copy "temp.png" to clipboard
-4.) Pastebot should automatically transfer the image to iPhone's clipboard
-5.) Use VNC and Cliclick to paste image.  Wait until after "start" message
-6.) Start tcpdump collection
-7.) Use VNC and Cliclick to press send button
-8.) Stop tcpdump collection after image has fully transferred
+1. Determine x,y coordinates of Messages text box, paste bubble, and send
+2. Generate random PNG image of specified dimensions save to "temp.png"
+3. Use AppleScript to copy "temp.png" to clipboard
+4. Pastebot should automatically transfer the image to iPhone's clipboard
+5. Use VNC and Cliclick to paste image.  Wait until after "start" message
+6. Start tcpdump collection
+7. Use VNC and Cliclick to press send button
+8. Stop tcpdump collection after image has fully transferred
 
